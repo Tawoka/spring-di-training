@@ -1,34 +1,30 @@
 package com.rmorgner.di.controllers;
 
-import com.rmorgner.di.services.GreetingService;
-import com.rmorgner.di.services.GreetingServiceImpl;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
+@SpringBootTest
 class FactoryInjectionControllerTest {
 
-  GreetingService greetingService;
-
-  @BeforeEach
-  void setUp() {
-    greetingService = new GreetingServiceImpl();
-  }
+  @Autowired
+  FactoryInjectionController controllerFactory;
 
   @Test
   void buildConstructor() {
-    InjectionController instance = FactoryInjectionController.createInstance(greetingService, InjectionType.CONSTRUCTOR);
+    InjectionController instance = controllerFactory.createInstance(InjectionType.CONSTRUCTOR);
     System.out.println(instance.sayHello());
   }
 
   @Test
   void buildSetter() {
-    InjectionController instance = FactoryInjectionController.createInstance(greetingService, InjectionType.SETTER);
+    InjectionController instance = controllerFactory.createInstance(InjectionType.SETTER);
     System.out.println(instance.sayHello());
   }
 
   @Test
   void buildProperty() {
-    InjectionController instance = FactoryInjectionController.createInstance(greetingService, InjectionType.PROPERTY);
+    InjectionController instance = controllerFactory.createInstance(InjectionType.PROPERTY);
     System.out.println(instance.sayHello());
   }
 }
